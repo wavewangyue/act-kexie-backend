@@ -73,7 +73,7 @@ def get_org(request):
     
     result = result["data"]["list"]
 
-    result = [{"article_source":"科普中国","province_name":"北京","num":"1100"}]*8
+    result = [{"article_source":"科普中国","province_name":"北京","num":"1100"}]*10
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
@@ -97,7 +97,7 @@ def get_art(request):
     
     result = result["data"]["list"]
 
-    result = [{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*4
+    result = [{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
