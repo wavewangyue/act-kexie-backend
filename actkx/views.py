@@ -43,8 +43,8 @@ def get_per(request):
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
     url = "https://open-api.kepuchina.cn/Articlecount/getSciencerCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
 
-    result = json.loads(urllib.request.urlopen(url, timeout=10).read())
-
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+    
     result = result["data"]["list"]
 
     result = [{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*10
@@ -69,8 +69,8 @@ def get_org(request):
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
     url = "https://open-api.kepuchina.cn/Articlecount/getSourceCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
 
-    result = json.loads(urllib.request.urlopen(url, timeout=10).read())
-
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+    
     result = result["data"]["list"]
 
     result = [{"article_source":province_code,"province_name":ch_id,"num":ch_id}]*10
@@ -93,8 +93,8 @@ def get_art(request):
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
     url = "https://open-api.kepuchina.cn/Articlecount/getArticleCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
 
-    result = json.loads(urllib.request.urlopen(url, timeout=10).read())
-
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+    
     result = result["data"]["list"]
 
     result = [{"ar_name":province_code,"province_name":province_code,"article_source":ch_id,"hits":ch_id}]*10
