@@ -18,6 +18,8 @@ def get_online_user_num(request):
     sn2 = hashlib.md5(sn2.encode("utf-8")).hexdigest()
     url2 = "https://openapi.scimall.org.cn/sciwisdom/getuseronline?appid=kejie_sciwisdom&timestamp="+timestamp+"&sn="+sn2
 
+    print(urllib.request.urlopen(url1, timeout=10).read())
+    exit(0)
     result1 = json.loads(urllib.request.urlopen(url1, timeout=10).read())
     result2 = json.loads(urllib.request.urlopen(url2, timeout=10).read())
 
