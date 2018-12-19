@@ -47,7 +47,7 @@ def get_per(request):
     
     result = result["data"]["list"]
 
-    result = [{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*10
+    result = [{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*20
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
@@ -64,7 +64,7 @@ def get_org(request):
 
     timestamp = str(time.time()).split(".")[0]
 
-    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSourceCount&province_code="+province_code+"&size=30&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSourceCount&province_code="+province_code+"&size=8&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
     sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
     url = "https://open-api.kepuchina.cn/Articlecount/getSourceCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
@@ -73,7 +73,7 @@ def get_org(request):
     
     result = result["data"]["list"]
 
-    result = [{"article_source":province_code,"province_name":ch_id,"num":ch_id}]*10
+    result = [{"article_source":"科普中国","province_name":"北京","num":"1100"}]*8
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
@@ -88,7 +88,7 @@ def get_art(request):
 
     timestamp = str(time.time()).split(".")[0]
 
-    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getArticleCount&province_code="+province_code+"&size=30&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getArticleCount&province_code="+province_code+"&size=4&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
     sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
     url = "https://open-api.kepuchina.cn/Articlecount/getArticleCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
@@ -97,7 +97,7 @@ def get_art(request):
     
     result = result["data"]["list"]
 
-    result = [{"ar_name":province_code,"province_name":province_code,"article_source":ch_id,"hits":ch_id}]*10
+    result = [{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*4
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
