@@ -20,8 +20,8 @@ def get_online_user_num(request):
 
     #print(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
     
-    result1 = json.loads(urllib.request.urlopen(url1, timeout=10).read())
-    result2 = json.loads(urllib.request.urlopen(url2, timeout=10).read())
+    result1 = json.loads(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
+    result2 = json.loads(str(urllib.request.urlopen(url2, timeout=10).read(),encoding="utf-8"))
 
     num = result1["data"]["num"] + result2["data"]["num"]
     #num=1
