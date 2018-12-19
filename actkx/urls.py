@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import dxs.xuehui
+import actkx.views as views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/dxs/xuehui/search', dxs.xuehui.search_xuehui)
+    path('api/index/num', views.get_online_user_num),
+    path('api/dkp/get_sciencers', views.get_sciencers)
 ]
