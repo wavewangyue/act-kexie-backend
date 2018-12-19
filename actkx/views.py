@@ -19,12 +19,12 @@ def get_online_user_num(request):
     url2 = "https://openapi.scimall.org.cn/sciwisdom/getuseronline?appid=kejie_sciwisdom&timestamp="+timestamp+"&sn="+sn2
 
     print(urllib.request.urlopen(url1, timeout=10).read())
-    exit(0)
-    result1 = json.loads(urllib.request.urlopen(url1, timeout=10).read())
-    result2 = json.loads(urllib.request.urlopen(url2, timeout=10).read())
+    
+    #result1 = json.loads(urllib.request.urlopen(url1, timeout=10).read())
+    #result2 = json.loads(urllib.request.urlopen(url2, timeout=10).read())
 
-    num = result1["data"]["num"] + result2["data"]["num"]
-
+    #num = result1["data"]["num"] + result2["data"]["num"]
+    num=1
     response = HttpResponse(json.dumps(num, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
     return response
