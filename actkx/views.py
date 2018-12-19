@@ -30,27 +30,77 @@ def get_online_user_num(request):
     return response
 
 
-def get_sciencers(request):
 
-    province_code = request.GET.get("province_code", None)
-    ch_id = request.GET.get("ch_id", None)
+def get_per(request):
+
+    province_code = request.GET.get("province_code", "110000000000")
+    ch_id = request.GET.get("ch_id", "AT201605110953441010")
 
     timestamp = str(time.time()).split(".")[0]
 
-    print(timestamp)
-
-    #str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSciencerCount&province_code="+province_code+"&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"+"&size=30"
-    str1 = "appid=kepu_sciwisdom&path=/Articlecount/getSciencerCount&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
-    print(str1)
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSciencerCount&province_code="+province_code+"&size=30&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
     sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
-    url = "https://open-api.kepuchina.cn/Articlecount/getSciencerCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
-    print(url)
+    url = "https://open-api.kepuchina.cn/Articlecount/getSciencerCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
 
     result = json.loads(urllib.request.urlopen(url, timeout=10).read())
 
-    num = result
+    result = result["data"]["list"]
 
-    response = HttpResponse(json.dumps(num, ensure_ascii=False))
+    result = [{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*10
+
+    response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
     return response
+
+
+
+
+
+def get_org(request):
+
+    province_code = request.GET.get("province_code", "110000000000")
+    ch_id = request.GET.get("ch_id", "AT201605110953441010")
+
+    timestamp = str(time.time()).split(".")[0]
+
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSourceCount&province_code="+province_code+"&size=30&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
+    sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
+    url = "https://open-api.kepuchina.cn/Articlecount/getSourceCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
+
+    result = json.loads(urllib.request.urlopen(url, timeout=10).read())
+
+    result = result["data"]["list"]
+
+    result = [{"article_source":province_code,"province_name":ch_id,"num":ch_id}]*10
+
+    response = HttpResponse(json.dumps(result, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+
+def get_art(request):
+
+    province_code = request.GET.get("province_code", "110000000000")
+    ch_id = request.GET.get("ch_id", "AT201605110953441010")
+
+    timestamp = str(time.time()).split(".")[0]
+
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getArticleCount&province_code="+province_code+"&size=30&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
+    sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
+    url = "https://open-api.kepuchina.cn/Articlecount/getArticleCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
+
+    result = json.loads(urllib.request.urlopen(url, timeout=10).read())
+
+    result = result["data"]["list"]
+
+    result = [{"ar_name":province_code,"province_name":province_code,"article_source":ch_id,"hits":ch_id}]*10
+
+    response = HttpResponse(json.dumps(result, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
