@@ -38,10 +38,10 @@ def get_per(request):
 
     timestamp = str(time.time()).split(".")[0]
 
-    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSciencerCount&province_code="+province_code+"&size=30&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSciencerCount&province_code="+province_code+"&size=20&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
     sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
-    url = "https://open-api.kepuchina.cn/Articlecount/getSciencerCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
+    url = "https://open-api.kepuchina.cn/Articlecount/getSciencerCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=20"+"&sn="+sn
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
@@ -64,10 +64,10 @@ def get_org(request):
 
     timestamp = str(time.time()).split(".")[0]
 
-    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSourceCount&province_code="+province_code+"&size=8&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getSourceCount&province_code="+province_code+"&size=20&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
     sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
-    url = "https://open-api.kepuchina.cn/Articlecount/getSourceCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
+    url = "https://open-api.kepuchina.cn/Articlecount/getSourceCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=20"+"&sn="+sn
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
@@ -88,10 +88,10 @@ def get_art(request):
 
     timestamp = str(time.time()).split(".")[0]
 
-    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getArticleCount&province_code="+province_code+"&size=4&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getArticleCount&province_code="+province_code+"&size=20&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
     sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
-    url = "https://open-api.kepuchina.cn/Articlecount/getArticleCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=30"+"&sn="+sn
+    url = "https://open-api.kepuchina.cn/Articlecount/getArticleCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=20"+"&sn="+sn
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
