@@ -44,6 +44,87 @@ def get_male_user_num(request):
     return response
 
 
+def get_map_nums(request):
+
+    timestamp = str(time.time()).split(".")[0]
+   
+    str1 = "appid=kejie_sciwisdom&path=/Sciwisdom/map&timestamp="+timestamp+"&secretkey=22306802-02ad-4342-a2ab-2141231d7349"
+    sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
+    url = "https://openapi.scimall.org.cn/Sciwisdom/map?appid=kejie_sciwisdom&timestamp="+timestamp+"&sn="+sn
+
+    #print(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
+    
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+
+    map_num = {}
+
+    num = result["data"]
+    
+    response = HttpResponse(json.dumps(num, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+def get_active_areas(request):
+
+    timestamp = str(time.time()).split(".")[0]
+   
+    str1 = "appid=kejie_sciwisdom&path=/Sciwisdom/areaActive&timestamp="+timestamp+"&secretkey=22306802-02ad-4342-a2ab-2141231d7349"
+    sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
+    url = "https://openapi.scimall.org.cn/Sciwisdom/areaActive?appid=kejie_sciwisdom&timestamp="+timestamp+"&sn="+sn
+
+    #print(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
+    
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+
+    num = result["data"]
+    
+    response = HttpResponse(json.dumps(num, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+def get_news(request):
+
+    timestamp = str(time.time()).split(".")[0]
+   
+    str1 = "appid=kejie_sciwisdom&path=/Sciwisdom/news&timestamp="+timestamp+"&secretkey=22306802-02ad-4342-a2ab-2141231d7349"
+    sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
+    url = "https://openapi.scimall.org.cn/Sciwisdom/news?appid=kejie_sciwisdom&timestamp="+timestamp+"&sn="+sn
+
+    #print(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
+    
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+
+    num = result["data"]
+    
+    response = HttpResponse(json.dumps(num, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+def get_hotWorld(request):
+
+    timestamp = str(time.time()).split(".")[0]
+   
+    str1 = "appid=kejie_sciwisdom&path=/Sciwisdom/hotWorld&timestamp="+timestamp+"&secretkey=22306802-02ad-4342-a2ab-2141231d7349"
+    sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
+    url = "https://openapi.scimall.org.cn/Sciwisdom/hotWorld?appid=kejie_sciwisdom&timestamp="+timestamp+"&sn="+sn
+
+    #print(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
+    
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+
+    num = result["data"]
+    
+    response = HttpResponse(json.dumps(num, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
 
 
 

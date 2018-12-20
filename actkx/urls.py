@@ -26,8 +26,11 @@ urlpatterns = [
     path('api/dkp/get_art', views.get_art),
     path('api/dkp/get_top_words', views.get_top_words),
     
-
     path('api/kj/get_num', views_kj.get_online_user_num),
     path('api/kj/get_male', views_kj.get_male_user_num),
+    path('api/kj/get_map_nums', views_kj.get_map_nums),
+    path('api/kj/get_active_areas', views_kj.get_active_areas),
+    path('api/kj/get_news', views_kj.get_news),
+    path('api/kj/get_hotworld', views_kj.get_hotWorld)
        
 ]
