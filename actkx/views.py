@@ -31,6 +31,26 @@ def get_online_user_num(request):
 
 
 
+def get_top_words(request):
+
+    timestamp = str(time.time()).split(".")[0]
+
+    str1 = "appid=kepu_sciwisdom&path=/sciwisdom/top20&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
+    sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
+    url = "https://open-api.kepuchina.cn/sciwisdom/top20?appid=kepu_sciwisdom&timestamp="+timestamp+"&sn="+sn
+    
+    result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
+
+    num = result["data"]
+    
+    response = HttpResponse(json.dumps(num, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+
+
 def get_per(request):
 
     province_code = request.GET.get("province_code", "150000000000")

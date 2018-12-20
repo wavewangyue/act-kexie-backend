@@ -16,12 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import actkx.views as views
-
+import actkx.views_kj as views_kj
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/index/num', views.get_online_user_num),
     path('api/dkp/get_per', views.get_per),
     path('api/dkp/get_org', views.get_org),
-    path('api/dkp/get_art', views.get_art)
+    path('api/dkp/get_art', views.get_art),
+    path('api/dkp/get_top_words', views.get_top_words),
+    
+
+    path('api/kj/get_num', views_kj.get_online_user_num),
+    path('api/kj/get_male', views_kj.get_male_user_num),
+       
 ]
