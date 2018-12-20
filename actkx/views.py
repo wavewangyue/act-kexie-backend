@@ -33,8 +33,8 @@ def get_online_user_num(request):
 
 def get_per(request):
 
-    province_code = request.GET.get("province_code", "110000000000")
-    ch_id = request.GET.get("ch_id", "AT201605110953441010")
+    province_code = request.GET.get("province_code", "150000000000")
+    ch_id = request.GET.get("ch_id", "AT201604301608271001")
 
     timestamp = str(time.time()).split(".")[0]
 
@@ -45,9 +45,9 @@ def get_per(request):
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
-    #result = {"list":result["data"]["list"],"total":0}
+    result = {"list":result["data"]["list"],"total":result["data"]["total"]}
 
-    result = {"list":[{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*20, "total":99}
+    #result = {"list":[{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*20, "total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
@@ -71,9 +71,9 @@ def get_org(request):
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
-    #result = {"list":result["data"]["list"],"total":0}
+    result = {"list":result["data"]["list"],"total":result["data"]["total"]}
 
-    result = {"list":[{"article_source":"新华网","province_name":"北京","num":"1100"}]*10, "total":99}
+    #result = {"list":[{"article_source":"新华网","province_name":"北京","num":"1100"}]*10, "total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
@@ -95,9 +95,9 @@ def get_art(request):
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
-    #result = {"list":result["data"]["list"],"total":0}
+    result = {"list":result["data"]["list"],"total":result["data"]["total"]}
 
-    result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
+    #result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
