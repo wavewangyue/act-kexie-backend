@@ -59,8 +59,8 @@ def get_per(request):
 
 def get_org(request):
 
-    province_code = request.GET.get("province_code", "110000000000")
-    ch_id = request.GET.get("ch_id", "AT201605110953441010")
+    province_code = request.GET.get("province_code", "150000000000")
+    ch_id = request.GET.get("ch_id", "AT201604301608271001")
 
     timestamp = str(time.time()).split(".")[0]
 
@@ -83,8 +83,8 @@ def get_org(request):
 
 def get_art(request):
 
-    province_code = request.GET.get("province_code", "110000000000")
-    ch_id = request.GET.get("ch_id", "AT201605110953441010")
+    province_code = request.GET.get("province_code", "150000000000")
+    ch_id = request.GET.get("ch_id", "AT201604301608271001")
 
     timestamp = str(time.time()).split(".")[0]
 
