@@ -35,7 +35,6 @@ urlpatterns = [
     path('api/kj/get_member_num', views_kj.get_member_num),
     path('api/kj/get_org_num', views_kj.get_org_num),
     path('api/kj/get_org_news', views_kj.get_org_news),
-    
-    
-       
+    path('api/kj/get_dynamic', views_kj.get_dynamic),
+    path('api/kj/get_collect', views_kj.get_collect),
 ]
