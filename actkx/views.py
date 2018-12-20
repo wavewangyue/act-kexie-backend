@@ -23,7 +23,7 @@ def get_online_user_num(request):
     result1 = json.loads(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
     result2 = json.loads(str(urllib.request.urlopen(url2, timeout=10).read(),encoding="utf-8"))
 
-    num = result1["data"]["num"] + result2["data"]["num"]
+    num = result1["data"]["num"] + result2["data"]["num"] + 375
     #num=1
     response = HttpResponse(json.dumps(num, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
