@@ -45,9 +45,9 @@ def get_per(request):
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
-    result = result["data"]["list"]
+    #result = {"list":result["data"]["list"],"total":0}
 
-    result = [{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*20
+    result = {"list":[{"sciencer_name":province_code,"province_name":ch_id,"experience":ch_id}]*20, "total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
@@ -71,9 +71,9 @@ def get_org(request):
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
-    result = result["data"]["list"]
+    #result = {"list":result["data"]["list"],"total":0}
 
-    result = [{"article_source":"科普中国","province_name":"北京","num":"1100"}]*10
+    result = {"list":[{"article_source":"新华网","province_name":"北京","num":"1100"}]*10, "total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
@@ -95,9 +95,9 @@ def get_art(request):
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
     
-    result = result["data"]["list"]
+    #result = {"list":result["data"]["list"],"total":0}
 
-    result = [{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10
+    result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
