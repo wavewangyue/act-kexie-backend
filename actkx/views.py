@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import urllib
 import time
 import hashlib
+import sys
 
 def get_online_user_num(request):
 
@@ -108,16 +109,224 @@ def get_art(request):
 
     timestamp = str(time.time()).split(".")[0]
 
-    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getArticleCount&province_code="+province_code+"&size=20&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"  
+    str1 = "appid=kepu_sciwisdom&ch_id="+ch_id+"&page=1&path=/Articlecount/getArticleCount&province_code="+province_code+"&size=20&timestamp="+timestamp+"&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
     sn = hashlib.md5(str1.encode("utf-8")).hexdigest()
     sn = hashlib.md5(sn.encode("utf-8")).hexdigest()
     url = "https://open-api.kepuchina.cn/Articlecount/getArticleCount?appid=kepu_sciwisdom&timestamp="+timestamp+"&province_code="+province_code+"&ch_id="+ch_id+"&page=1&size=20"+"&sn="+sn
 
     result = json.loads(str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8"))
-    
+
     result = {"list":result["data"]["list"],"total":result["data"]["total"]}
 
     #result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
+
+    response = HttpResponse(json.dumps(result, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def get_map(type1,type2,type3): #type1 场馆级别 type2 单位性质 type3 隶属关系
+    file1 = open(sys.path[0]+u'/static/museum_data/2017年全国科技馆调查统计表-192家达标科技馆.json', "r",encoding="utf-8")
+    fileJson1 = json.load(file1)
+    map_data = {}
+    result_data = []
+    for item in fileJson1:
+        if type1 != u'全部' and type1 == item[u'场馆级别']:
+
+            if type2 != u'全部'and type2 == item[u'单位性质']:
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+                elif type3 == u'全部':
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+            elif type2 == u'全部':
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+                elif type3 == u'全部':
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+        elif type1 == u'全部':
+            if type2 != u'全部'and type2 == item[u'单位性质']:
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+                elif type3 == u'全部':
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+            elif type2 == u'全部':
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+                elif type3 == u'全部':
+                    province = item[u'省份']
+                    if province not in map_data:
+                        map_data[province] = 1
+                    else:
+                        map_data[province] += 1
+
+
+    for key in map_data:
+        row_data_dict = {}
+        row_data_dict['name'] = key
+        row_data_dict['value'] = map_data[key]
+        result_data.append(row_data_dict)
+
+    return result_data
+
+def get_museum_map(request):
+    type1 = request.GET.get("type1", "全部")
+    type2 = request.GET.get("type2", "全部")
+    type3 = request.GET.get("type3", "全部")
+
+    data = get_map(type1, type2, type3)  # type1 场馆级别 type2 单位性质 type3 隶属关系
+    result = {"list": data, "total": 1}
+
+    # result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
+
+    response = HttpResponse(json.dumps(result, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def get_list(province,type1,type2,type3): #type1 场馆级别 type2 单位性质 type3 隶属关系
+    file1 = open(sys.path[0] + u'/static/museum_data/2017年全国科技馆调查统计表-192家达标科技馆.json', "r", encoding="utf-8")
+    fileJson1 = json.load(file1)
+    result_data = []
+    for item in fileJson1:
+        if type1 != u'全部' and type1 == item[u'场馆级别']:
+
+            if type2 != u'全部' and type2 == item[u'单位性质']:
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+                elif type3 == u'全部':
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+            elif type2 == u'全部':
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+                elif type3 == u'全部':
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+        elif type1 == u'全部':
+            if type2 != u'全部' and type2 == item[u'单位性质']:
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+                elif type3 == u'全部':
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+            elif type2 == u'全部':
+                if type3 != u'全部' and type3 == item[u'隶属关系']:
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+                elif type3 == u'全部':
+                    if province == u'全部':
+                        result_data.append(item)
+                    elif province == item[u'省份']:
+                        result_data.append(item)
+    final_data = []
+    for item in result_data:
+        row_data_dict = {}
+        row_data_dict[u'名称'] = item[u'名称']
+        row_data_dict[u'省份'] = item[u'省份']
+        row_data_dict[u'场馆级别'] = item[u'场馆级别']
+        if u'单位性质' in item:
+            row_data_dict[u'单位性质'] = item[u'单位性质']
+        else:
+            row_data_dict[u'单位性质'] = u"暂缺"
+        if u'隶属关系' in item:
+            row_data_dict[u'隶属关系'] = item[u'隶属关系']
+        else:
+            row_data_dict[u'隶属关系'] = u"暂缺"
+        row_data_dict[u'现建筑面积'] = item[u'现建筑面积']
+        final_data.append(row_data_dict)
+    return result_data
+
+def get_museum_list(request):
+    province = request.GET.get("province", "全部")
+    type1 = request.GET.get("type1", "全部")
+    type2 = request.GET.get("type2", "全部")
+    type3 = request.GET.get("type3", "全部")
+
+    data = get_list(province,type1, type2, type3)  # type1 场馆级别 type2 单位性质 type3 隶属关系
+    result = {"list": data, "total": data.__len__()}
+
+    # result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
+
+    response = HttpResponse(json.dumps(result, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def get_museum_information(museum_name):
+    file1 = open(sys.path[0] + u'/static/museum_data/2017年全国科技馆调查统计表-192家达标科技馆.json', "r", encoding="utf-8")
+    fileJson1 = json.load(file1)
+    row_data_dict = {}
+    for item in fileJson1:
+        if item[u'名称'] == museum_name:
+            row_data_dict[u'名称'] = item[u'名称']
+            row_data_dict[u'省份'] = item[u'省份']
+            row_data_dict[u'场馆级别'] = item[u'场馆级别']
+            if u'单位性质' in item:
+                row_data_dict[u'单位性质'] = item[u'单位性质']
+            else:
+                row_data_dict[u'单位性质'] = u"暂缺"
+            if u'隶属关系' in item:
+                row_data_dict[u'隶属关系'] = item[u'隶属关系']
+            else:
+                row_data_dict[u'隶属关系'] = u"暂缺"
+            row_data_dict[u'现建筑面积'] = item[u'现建筑面积']
+            if 'description' in item:
+                row_data_dict[u'场馆简介'] = item['description']
+                row_data_dict[u'评分'] = item['score']
+                row_data_dict[u'评价'] = item['opinions']
+
+
+    return row_data_dict
+
+def get_museum_info(request):
+    museum_name = request.GET.get("museum_name", "中国科学技术馆")
+
+    data = get_museum_information(museum_name)
+    result = {"list": data, "total": 1}
+
+    # result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
