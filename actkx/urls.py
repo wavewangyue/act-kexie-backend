@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/dkp/get_museum_map', views.get_museum_map),
     path('api/dkp/get_museum_list', views.get_museum_list),
     path('api/dkp/get_museum_info', views.get_museum_info),
+    path('api/dkp/get_museum_abstract', views.get_museum_abstract),
     
     path('api/kj/get_num', views_kj.get_online_user_num),
     path('api/kj/get_male', views_kj.get_male_user_num),
