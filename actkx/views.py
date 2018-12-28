@@ -159,6 +159,7 @@ def get_map(type1,type2,type3): #type1 场馆级别 type2 单位性质 type3 隶
                     else:
                         map_data[province] += 1
         elif type1 == u'全部':
+            print (item['名称'])
             if type2 != u'全部'and type2 == item[u'单位性质']:
                 if type3 != u'全部' and type3 == item[u'隶属关系']:
                     province = item[u'省份']
@@ -329,6 +330,43 @@ def get_museum_info(request):
     # result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
 
     response = HttpResponse(json.dumps(result, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def get_abstract(museum_name):
+    file1 = open(sys.path[0] + u'/static/museum_data/museum_abstract.json', "r", encoding="utf-8")
+    fileJson1 = json.load(file1)
+    result_data = []
+    for item in fileJson1:
+        if item[u'名称'] == museum_name:
+            if 'abstract' in item:
+                abstract = item[u'abstract']
+                if abstract == '':
+                    row_data_dict = {}
+                    row_data_dict['keyword'] = u'暂缺'
+                    row_data_dict['id'] = 1
+                    result_data.append(row_data_dict)
+                    continue
+                else:
+                    num = 1
+                    for key in abstract:
+                        row_data_dict = {}
+                        row_data_dict['keyword'] = key
+                        row_data_dict['id'] = num
+                        num += 1
+                        result_data.append(row_data_dict)
+
+    return result_data
+
+def get_museum_abstract(request):
+    museum_name = request.GET.get("museum_name", "中国科学技术馆")
+
+    data = get_abstract(museum_name)
+    #result = {"list": data, "total": 1}
+
+    # result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
+
+    response = HttpResponse(json.dumps(data, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
     return response
 
