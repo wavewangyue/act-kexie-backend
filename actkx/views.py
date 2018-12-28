@@ -30,7 +30,30 @@ def get_online_user_num(request):
     response["Access-Control-Allow-Origin"] = "*"
     return response
 
+def get_online_user_num_three(request):
+    timestamp = str(time.time()).split(".")[0]
 
+    str1 = "appid=kepu_sciwisdom&path=/sciwisdom/getuseronline&timestamp=" + timestamp + "&secretkey=54f0f716-ae44-4538-b309-d09a96fbad2f"
+    sn1 = hashlib.md5(str1.encode("utf-8")).hexdigest()
+    sn1 = hashlib.md5(sn1.encode("utf-8")).hexdigest()
+    url1 = "https://open-api.kepuchina.cn/sciwisdom/getuseronline?appid=kepu_sciwisdom&timestamp=" + timestamp + "&sn=" + sn1
+
+    str2 = "appid=kejie_sciwisdom&path=/sciwisdom/getuseronline&timestamp=" + timestamp + "&secretkey=22306802-02ad-4342-a2ab-2141231d7349"
+    sn2 = hashlib.md5(str2.encode("utf-8")).hexdigest()
+    sn2 = hashlib.md5(sn2.encode("utf-8")).hexdigest()
+    url2 = "https://openapi.scimall.org.cn/sciwisdom/getuseronline?appid=kejie_sciwisdom&timestamp=" + timestamp + "&sn=" + sn2
+
+    # print(str(urllib.request.urlopen(url1, timeout=10).read(),encoding="utf-8"))
+
+    result1 = json.loads(str(urllib.request.urlopen(url1, timeout=10).read(), encoding="utf-8"))
+    result2 = json.loads(str(urllib.request.urlopen(url2, timeout=10).read(), encoding="utf-8"))
+
+    num = result1["data"]["num"] + result2["data"]["num"] + 375
+    result={"kepu":result1["data"]["num"],"kejie":result2["data"]["num"]}
+    # num=1
+    response = HttpResponse(json.dumps(result, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
 
 def get_top_words(request):
 

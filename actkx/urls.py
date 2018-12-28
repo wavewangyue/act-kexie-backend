@@ -21,6 +21,7 @@ import actkx.views_kj as views_kj
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/index/num', views.get_online_user_num),
+    path('api/index/num_three', views.get_online_user_num_three),
     path('api/dkp/get_per', views.get_per),
     path('api/dkp/get_org', views.get_org),
     path('api/dkp/get_art', views.get_art),
