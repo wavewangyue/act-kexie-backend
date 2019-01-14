@@ -393,4 +393,58 @@ def get_museum_abstract(request):
     response["Access-Control-Allow-Origin"] = "*"
     return response
 
+def get_knprst_trend_fun(province_name, topic_name):
+    file1 = open(sys.path[0] + u'/static/kpnrst_data/kpnrst.json', "r", encoding="utf-8")
+    fileJson1 = json.load(file1)
+    result_data = []
+    for item in fileJson1:
+        if item == province_name:
+            for topic in fileJson1[item]:
+                if topic == topic_name:
+                    if fileJson1[item][topic][5] >= fileJson1[item][topic][4]:
+                        result_data.append(u'上升')
+                    else:
+                        result_data.append(u'下降')
+    return result_data
+
+def get_knprst_trend(request):
+    province_name = request.GET.get("province_name", "吉林")
+    topic_name = request.GET.get("topic_name", "头条")
+
+    data = get_knprst_trend_fun(province_name,topic_name)
+    #result = {"list": data, "total": 1}
+
+    # result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
+
+    response = HttpResponse(json.dumps(data, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def get_kpnrst_hot_fun(province_name):
+    file1 = open(sys.path[0] + u'/static/kpnrst_data/kpnrst.json', "r", encoding="utf-8")
+    fileJson1 = json.load(file1)
+    result_data = []
+    max = 0
+    hot = u'头条'
+    for item in fileJson1:
+        if item == province_name:
+            for topic in fileJson1[item]:
+                if float(fileJson1[item][topic][5]) >= max:
+                    max = float(fileJson1[item][topic][5])
+                    hot = topic
+    result_data.append(hot)
+    return result_data
+
+def get_kpnrst_hot(request):
+    province_name = request.GET.get("province_name", "吉林")
+
+    data = get_kpnrst_hot_fun(province_name)
+    #result = {"list": data, "total": 1}
+
+    # result = {"list":[{"ar_name":province_code,"province_name":"北京","article_source":"科普中国","hits":"1000"}]*10,"total":99}
+
+    response = HttpResponse(json.dumps(data, ensure_ascii=False))
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
 
