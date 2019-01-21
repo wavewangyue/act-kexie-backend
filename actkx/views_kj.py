@@ -159,6 +159,16 @@ def get_org_num(request):
     result = str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8")
 
     num = json.loads(result)
+    data=num["data"]
+    XH_map=data["XH_map"]
+    KX_map = data["KX_map"]
+    for tem in KX_map:
+        tem["value"]=tem["num"]
+        tem.pop(num)
+    for tem in XH_map:
+        tem["value"]=tem["num"]
+        tem.pop(num)
+
     
     response = HttpResponse(json.dumps(num, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
