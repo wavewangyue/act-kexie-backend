@@ -158,7 +158,7 @@ def get_org_num(request):
 
     result = str(urllib.request.urlopen(url, timeout=10).read(),encoding="utf-8")
 
-    num = result
+    num = json.loads(result)
     
     response = HttpResponse(json.dumps(num, ensure_ascii=False))
     response["Access-Control-Allow-Origin"] = "*"
