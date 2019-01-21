@@ -164,10 +164,10 @@ def get_org_num(request):
     KX_map = data["KX_map"]
     for tem in KX_map:
         tem["value"]=tem["num"]
-        tem.pop(num)
+        tem.pop("num")
     for tem in XH_map:
         tem["value"]=tem["num"]
-        tem.pop(num)
+        tem.pop("num")
 
     
     response = HttpResponse(json.dumps(num, ensure_ascii=False))
