@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 import actkx.views as views
 import actkx.views_kj as views_kj
+import dxs.dxs_views as dxs_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -46,4 +47,13 @@ urlpatterns = [
     path('api/kj/get_org_news', views_kj.get_org_news),
     path('api/kj/get_dynamic', views_kj.get_dynamic),
     path('api/kj/get_collect', views_kj.get_collect),
+
+    path('api/dxs/dxs_url_demo', dxs_views.dxs_url_demo),
+    path('api/dxs/get_xuehui_list_data', dxs_views.get_xuehui_list_data),
+    path('api/dxs/get_china_map_data', dxs_views.get_china_map_data),
+    path('api/dxs/get_world_map_data', dxs_views.get_world_map_data),
+    path('api/dxs/get_s_e_data', dxs_views.get_s_e_data),
+    path('api/dxs/get_redian_data', dxs_views.get_redian_data),
+    path('api/dxs/get_sci_ei_data', dxs_views.get_sci_ei_data),
+    path('api/dxs/get_huodong_data', dxs_views.get_huodong_data),
 ]
